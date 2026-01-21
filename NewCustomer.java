@@ -126,6 +126,25 @@ public class NewCustomer extends JFrame implements ActionListener {
             String city = tfcity.getText();
             String email = tfemail.getText();
             String phoneno = tfphoneno.getText();
+
+            if (name.isEmpty() || email.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Name and Email cannot be blank.");
+                return; // Prevents the execution of SQL queries
+            }
+
+    
+            String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+            if (!email.matches(emailRegex)) {
+                JOptionPane.showMessageDialog(null, "Invalid Email format.");
+                return;
+            }
+
+
+            String phoneRegex = "^\\d{10,12}$";
+            if (!phoneno.matches(phoneRegex)) {
+                JOptionPane.showMessageDialog(null, "Phone Number must be 10-12 digits.");
+                return;
+            }
             
             String query1 = "insert into customer values('"+name+"','"+meter+"','"+address+"','"+city+"','"+state+"','"+email+"','"+phoneno+"')";
             String query2 = "insert into login values('"+meter+"', '', '"+name+"', '', '')";
@@ -151,3 +170,4 @@ public class NewCustomer extends JFrame implements ActionListener {
         new NewCustomer();
     }
 }
+
